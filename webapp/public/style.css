@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+}
+/* button {
+  border: 1px solid #999;
+  background: #eee;
+  padding: .5em 1em;
+  border-radius: .5em;
+} */
+
+#app {
+  text-align: center;
+  /* background: peru; */
+}
+
+.native-available {
+  display: none;
+}

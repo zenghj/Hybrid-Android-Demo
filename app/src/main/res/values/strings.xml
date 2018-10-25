@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">WebViewDemo</string>
+    <string name="modify_title">修改title</string>
+</resources>

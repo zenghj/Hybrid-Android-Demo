@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>H5 page</title>
+    <style>
+
+        body {
+            text-align: center;
+        }
+        button {
+            display: inline-block;
+            margin: 1em;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">H5 page</h1>
+    <button onclick="onClick()">send request</button>
+    <button onclick="javascript:window.location.href = 'http://www.baidu.com';">go baidu.com</button>
+
+    <button onclick="window.top.prompt('Are you ok?', '')">Are you ok?</button>
+    <button onclick="window.top.prompt(uri,'')">hijack js prompt</button>
+
+    <button onclick="window.top.prompt(getUriWithCallback(callback),'')">
+        hijack js prompt and call callback fn</button>
+    <script>
+        var URL_SCHEMA_PREFIX = "myhybrid://";
+        var uri = URL_SCHEMA_PREFIX + 'test';
+        var title = document.getElementById('title');
+        var UUID = 0;
+
+        function onClick() {
+           window.location.href = uri;
+        }
+
+        function callback(str) {
+            title.textContent = `${str} / ${Date.now()}`;
+        }
+
+        function getUriWithCallback(callback) {
+            var cbName = 'hybridCb' + (++UUID);
+            window[cbName] = function(data) {
+                callback && callback(data);
+                window[cbName] = null;
+            }
+            return uri + '?cb=' + cbName;
+        }
+    </script>
+</body>
+</html>
